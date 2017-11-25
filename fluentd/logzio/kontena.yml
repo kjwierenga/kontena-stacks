@@ -1,0 +1,33 @@
+stack: kontena/fluentd-logzio
+version: 0.1.0
+description: Fluent forwarding to logz.io
+variables:
+  host:
+    type: string
+    default: listener.logz.io
+    from:
+      prompt: Logz.io host
+  port:
+    type: integer
+    default: 8071
+    from:
+      prompt: Logz.io port
+
+services:
+  agent:
+    build: .
+    image: kdgm/fluentd-logzio:latest
+    environment:
+      LOGZIO_HOST: {{ host }}
+      LOGZIO_PORT: {{ port }}
+    ports:
+      - 24224:24224
+    deploy:
+      strategy: daemon
+    mem_limit: 128m
+    cpu_shares: 256
+
+    secrets:
+      - secret: LOGZIO_TOKEN
+        name: LOGZIO_TOKEN
+        type: env
