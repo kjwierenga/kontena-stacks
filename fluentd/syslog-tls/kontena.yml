@@ -1,0 +1,26 @@
+stack: kontena/fluentd-syslog-tls
+version: 0.1.0
+description: Fluent forwarding using fluentd-syslog-tls plugin
+variables:
+  host:
+    type: string
+    from:
+      prompt: Remote syslog host
+  port:
+    type: integer
+    from:
+      prompt: Remote syslog port
+
+services:
+  agent:
+    build: .
+    image: kdgm/fluentd-syslog-tls:latest
+    environment:
+      SYSLOG_HOST: {{ host }}
+      SYSLOG_PORT: {{ port }}
+    ports:
+      - 24224:24224
+    deploy:
+      strategy: daemon
+    mem_limit: 128m
+    cpu_shares: 256
