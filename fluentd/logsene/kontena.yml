@@ -1,0 +1,33 @@
+stack: kontena/fluentd-logsene
+version: 0.1.0
+description: Fluent forwarding to Sematext Logsene
+variables:
+  host:
+    type: string
+    default: logsene-receiver.sematext.com
+    from:
+      prompt: Logsene host
+  port:
+    type: integer
+    default: 80
+    from:
+      prompt: Logsene port
+
+services:
+  agent:
+    build: .
+    image: kdgm/fluentd-logsene:latest
+    environment:
+      LOGSENE_HOST: {{ host }}
+      LOGSENE_PORT: {{ port }}
+    ports:
+      - 24224:24224
+    deploy:
+      strategy: daemon
+    mem_limit: 128m
+    cpu_shares: 256
+
+    secrets:
+      - secret: LOGSENE_PATH
+        name: LOGSENE_PATH
+        type: env
