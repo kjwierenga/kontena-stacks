@@ -83,3 +83,24 @@ $ kontena stack install kontena/fluentd-elasticsearch
 ```
 $ kontena grid update --log-forwarder fluentd --log-opt fluentd-address=localhost ${GRID}
 ```
+
+## Logsene
+
+[Sematext Logsene](https://sematext.com/logsene) is a SaaS solution for the ELK stack.
+
+### Installation
+
+Go to [Logs > All Logs Apps](https://apps.sematext.com/ui/logs) and select your log app. Select "App Settings" in the "Actions" column for your app. Take note of the Logsene "Token" on the "App Info" tab.
+
+```
+$ kontena vault write LOGSENE_PATH '<your logsene token>'
+$ kontena stack install kontena/fluentd-logsene
+> Logsene host: logsene-receiver.sematext.com
+> Logsene port: 443
+```
+
+### Grid Configuration
+
+```
+$ kontena grid update --log-forwarder fluentd --log-opt fluentd-address=localhost ${GRID}
+```
