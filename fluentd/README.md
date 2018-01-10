@@ -83,3 +83,24 @@ $ kontena stack install kontena/fluentd-elasticsearch
 ```
 $ kontena grid update --log-forwarder fluentd --log-opt fluentd-address=localhost ${GRID}
 ```
+
+## Logz.io
+
+[Logz.io](https://logz.io/) is a SaaS solution for log data management based the ELK stack.
+
+### Installation
+
+Find the `endpoint_url` in `Step 3` of the [Platforms > Log Shippers > Fluentd](https://app.logz.io/#/dashboard/data-sources/Fluentd) instructions on the 'Log Shipping' page. Take note of the `host`, `port` and `token` parts of the `endpoint_url`.
+
+```
+$ kontena vault write LOGZIO_TOKEN '<the token from the endpoint_url>'
+$ kontena stack install kontena/fluentd-logzio
+> Logz.io host : <the host from the endpoint_url>
+> Logz.io port : <the port from the endpoint_url>
+```
+
+### Grid Configuration
+
+```
+$ kontena grid update --log-forwarder fluentd --log-opt fluentd-address=localhost ${GRID}
+```
