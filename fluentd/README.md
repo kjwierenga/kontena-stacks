@@ -83,3 +83,23 @@ $ kontena stack install kontena/fluentd-elasticsearch
 ```
 $ kontena grid update --log-forwarder fluentd --log-opt fluentd-address=localhost ${GRID}
 ```
+
+## Syslog
+
+Fluentd agent forwards to various syslog collectors using TLS (only). This enables log output to [Papertrail](https://papertrailapp.com).
+
+### installation
+
+```
+$ kontena stack install kontena/fluentd-syslog-tls
+> Remote syslog host : <e.g. your papertrail host>
+> Remote syslog port : <e.g. your papertrail port>
+```
+
+You will be asked for syslog host and port.
+
+### Grid Configuration
+
+```
+$ kontena grid update --log-forwarder fluentd --log-opt fluentd-address=localhost ${GRID}
+```
